@@ -52,7 +52,7 @@ save_bookmark() {
   local url=$1
   local tags=${@:2}
   local date=$(date +%FT%H:%M:%S%z)
-  local title=$(curl "$url" -so -|ggrep -iPo '(?<=<title>)(.*)(?=</title>)'|sed 's#|# #g')
+  local title=$(curl -L "$url" -so -|ggrep -iPo '(?<=<title>)(.*)(?=</title>)'|sed 's#|# #g')
   echo "  Added bookmark"
   echo "    title: $title"
   echo "    url: $url"
