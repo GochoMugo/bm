@@ -54,7 +54,7 @@ Options:
 
 ```
 
-File Stucture
+## File Stucture
 
 ```
 $ cat ~/.bookmarks
@@ -62,3 +62,7 @@ http://vimeo.com/6200166|bike fixie|2014-08-06T07:36:56Z|One gear No idea on Vim
 http://z0r.de/?id=38|Fun|2010-01-24T19:25:36Z|ZOMG ZUFALL! #38
 ```
 
+## Pitfalls
+
+* I use `bm` on OpenBSD. If you're on Linux you may have to replace `ggrep`
+  with `grep`
