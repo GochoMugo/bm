@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # version
-VERSION="0.4.2-noqqe"
+VERSION="0.5.0-gochomugo"
 
 # bookmarks file
 BOOKMARKS=~/.bookmarks
