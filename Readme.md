@@ -1,17 +1,23 @@
 ## BM
 
+> \#1<br>
 >  Simple bash CLI bookmarks with tag support<br>
->  This is a fork that removes everything unneccessary.<br>
+>  This is a [fork][fork-1] that removes everything unneccessary.<br>
 >  Like DropBox, Previews.<br>
 >  Also modified default behavior,<br>
 >  replaced description with date field.<br>
 >  &mdash; by [@noqqe](https://github.com/noqqe)
 >
+> \#2<br>
+>  This is a yet another [fork][fork-2] of the above.<br>
 >  Kind of Simplified the help information.<br>
 >  Added the `help` and `version` commands.<br>
 >  Allow changing the default `$PREFIX` during install.<br>
 >  Use `grep` instead of `ggrep`, for Linux<br>
 >  &mdash; by [@GochoMugo](https://github.com/GochoMugo)
+
+[fork-1]:https://github.com/tj/bm
+[fork-2]:https://github.com/noqqe/bm
 
 
 ## Install
