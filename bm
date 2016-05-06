@@ -2,6 +2,7 @@
 
 # version
 VERSION="0.4.2-noqqe"
+
 # bookmarks file
 BOOKMARKS=~/.bookmarks
 
@@ -11,7 +12,7 @@ BOOKMARKS=~/.bookmarks
 usage() {
   cat <<EOF
 
-  Usage: bm [options] [cmd]
+  Usage: bm [cmd]
 
   Commands:
 
@@ -19,8 +20,7 @@ usage() {
     $ bm add <url> [tag...]
 
     # list bookmarks available
-    $ bm list
-    $ bm ls
+    $ bm list|ls
     $ bm
     $ bm 20
 
@@ -37,22 +37,23 @@ usage() {
     $ bm statistics
     $ bm stats
 
-  Options:
+    # show help information
+    $ bm help|-h|--help
 
-     -V, --version   output bm version
-     -h, --help      output this help information
+    # show version information
+    $ bm version|-V|--version
 
 EOF
 }
 
-# Add a bookmark
-#   <url> [description] [tag ...]
 
+# Add a bookmark
+#   <url> [tag ...]
 save_bookmark() {
   local url=$1
   local tags=${@:2}
   local date=$(date +%FT%H:%M:%S%z)
-  local title=$(curl -L "$url" -so -|ggrep -iPo '(?<=<title>)(.*)(?=</title>)'|sed 's#|# #g')
+  local title=$(curl -L "$url" -so -| grep -iPo '(?<=<title>)(.*)(?=</title>)'| sed 's#|# #g')
   echo "  Added bookmark"
   echo "    title: $title"
   echo "    url: $url"
@@ -61,9 +62,9 @@ save_bookmark() {
   echo "$url|$tags|$date|$title" >> $BOOKMARKS
 }
 
+
 # List all bookmarks
 #
-
 list_bookmarks() {
   echo
   cat $BOOKMARKS | tail -${1:-10} \
@@ -77,9 +78,9 @@ list_bookmarks() {
     }'
 }
 
-# Search all bookmarks with <query>
-#
 
+# Search all bookmarks with <query>
+# <query>
 search_bookmarks() {
   echo "Results for $1:"
   echo
@@ -95,9 +96,9 @@ search_bookmarks() {
     }'
 }
 
-# Open first bookmark matching <query>
-#
 
+# Open first bookmark matching <query>
+# <query>
 open_bookmark() {
   cat $BOOKMARKS \
     | grep $1 \
@@ -105,9 +106,9 @@ open_bookmark() {
     | xargs open
 }
 
+
 # Diplay some statistics about the bookmarks
 #
-
 show_statistics() {
   local total_bookmarks=$(cat $BOOKMARKS | wc -l | sed 's/^ *//')
   local total_tags=$(list_tags | wc -l | sed 's/^ *//')
@@ -116,9 +117,9 @@ show_statistics() {
   echo "        top 10 tags: `display_top_ten_tags`"
 }
 
+
 # Output tags.
 #
-
 list_tags() {
   cat $BOOKMARKS \
     | cut -f2 -d '|' \
@@ -128,9 +129,9 @@ list_tags() {
     | sort -nr
 }
 
+
 # Display the 10 most frequently used tags
 #
-
 display_top_ten_tags() {
   echo
   printf "%20s  %s\n" count tag
@@ -139,29 +140,28 @@ display_top_ten_tags() {
     | awk '{ printf("%20d  %s\n", $1, $2) }'
 }
 
-# List urls
-#
 
+# List urls
+# <query>
 urls() {
   cat $BOOKMARKS \
     | grep "$1" \
     | cut -d '|' -f 1
 }
 
-# no args
 
+# no args
 if test $# -eq 0; then
   list_bookmarks 10
   exit
 fi
 
 # parse args
-
 while test $# -ne 0; do
   arg=$1; shift
   case $arg in
-    -V|--version) echo $VERSION; exit ;;
-    -h|--help) usage; exit ;;
+    version|-V|--version) echo $VERSION; exit ;;
+    help|-h|--help) usage; exit ;;
     tags) list_tags; exit ;;
     ls|list) list_bookmarks "$@"; exit ;;
     search) search_bookmarks "$@"; exit ;;

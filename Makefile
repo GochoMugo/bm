@@ -1,5 +1,4 @@
-
-PREFIX=/usr/local
+PREFIX ?= /usr/local
 
 install:
 	cp -f bm $(PREFIX)/bin/bm
